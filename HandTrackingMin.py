@@ -26,8 +26,8 @@ while True:
                 height, weight, chanel = img.shape
                 chanel_x, chanel_y = int(lm.x * weight), int(lm.y * height)
                 print(id, chanel_x, chanel_y)
-                if id == 4:
-                    cv2.circle(img, (chanel_x, chanel_y), 15, (255, 0, 255), cv2.FILLED)
+                if id == 0:
+                    cv2.circle(img, (chanel_x, chanel_y), 25, (255, 0, 255), cv2.FILLED)
 
             mp_draw.draw_landmarks(img, hand_lms, mp_hands.HAND_CONNECTIONS)
 
