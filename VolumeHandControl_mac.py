@@ -38,10 +38,10 @@ while True:
         length = math.hypot(x1 - x2, y1 - y2)
 
         # Hand range 50 - 300
-        # Volume range -65 - 0
-        vol = np.interp(length, [50, 300], [-65, 0])
+        # Volume range 0 - 100 for mac
+        vol = np.interp(length, [50, 300], [0, 100])  # for mac
         vol_bar = np.interp(length, [50, 300], [400, 150])
-        vol_per = np.interp(length, [50, 300], [0, 100])
+        vol_per = np.interp(length, [50, 300], [0, 100])  # percent
         print(int(length), vol)
 
         # Call AppleScript to change the volume
