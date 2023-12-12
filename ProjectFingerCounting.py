@@ -66,6 +66,10 @@ while True:
         height, weight, chanel = over_lay_list[total_fingers-1].shape
         img[0:height, 0:weight] = over_lay_list[total_fingers-1]
 
+        cv2.rectangle(img, (20, 335), (170, 500), (0, 255, 0), cv2.FILLED)
+        cv2.putText(img, str(total_fingers), (45, 475), cv2.FONT_HERSHEY_PLAIN,
+                    10, (255, 0, 0), 25)
+
     # img[100:420, 100:280] = over_lay_list[0]  # screen offset proportional to size
     # img[0:320, 0:180] = over_lay_list[0]
 
