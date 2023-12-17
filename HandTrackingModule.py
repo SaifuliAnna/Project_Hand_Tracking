@@ -21,6 +21,8 @@ class HandDetector:
                                         self.tracking_confidence)
         self.mp_draw = mp.solutions.drawing_utils
 
+        self.tip_index = [4, 8, 12, 16, 20]
+
     def find_hands(self, img, draw=True):
         """
         - Converts the color format of a BGR image to RGB.
@@ -53,7 +55,7 @@ class HandDetector:
         :param draw:
         :return: lm_list
         """
-        lm_list = []
+        self.lm_list = []
 
         if self.results.multi_hand_landmarks:
             my_hand = self.results.multi_hand_landmarks[hand_number]
@@ -61,11 +63,31 @@ class HandDetector:
                 # print(id, lm)
                 height, weight, chanel = img.shape
                 chanel_x, chanel_y = int(lm.x * weight), int(lm.y * height)
-                lm_list.append([id, chanel_x, chanel_y])
+                self.lm_list.append([id, chanel_x, chanel_y])
                 if draw:
                     cv2.circle(img, (chanel_x, chanel_y), 15, (255, 0, 255), cv2.FILLED)
 
-        return lm_list
+        return self.lm_list
+
+    def fingers_up(self):
+        fingers = []
+
+        # Thumb
+        if self.lm_list[self.tip_index[0]][1] < self.lm_list[self.tip_index[0] - 1][1]:
+            # print("Index finger open")
+            fingers.append(1)
+        else:
+            fingers.append(0)
+
+        # 4 Fingers
+        for id in range(1, 5):
+            if self.lm_list[self.tip_index[id]][2] < self.lm_list[self.tip_index[id] - 2][2]:
+                # print("Index finger open")
+                fingers.append(1)
+            else:
+                fingers.append(0)
+
+        return fingers
 
 
 def main():
